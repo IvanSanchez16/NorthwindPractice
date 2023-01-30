@@ -1,0 +1,36 @@
+server:
+  servlet:
+    context-path: /api/v1
+  port: 8080
+
+app:
+  authUri: https://sso.coppel.io:50061/api/v1/verify
+  ignoreSession: true
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;database=northwind;applicationName=practicanorthwind;encrypt=true;trustServerCertificate=true;
+    username: testuser
+    password: testuser
+    tomcat:
+      connection-properties: useUnicode=true;characterEncoding=utf-8;
+    hikari:
+      minimumIdle: 4
+      maximumPoolSize: 8
+      idleTimeout: 15000
+      poolName: SpringBootJPAHikariCP
+      maxLifetime: 1800000
+      connectionTimeout: 30000
+  sql:
+    init:
+      encoding: UTF-8
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2016Dialect
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        format_sql: true
