@@ -17,18 +17,18 @@ import java.io.Serializable;
 @Setter
 public class Address implements Serializable {
 
-    @Column(length = 150)
+    @Column(length = 150, nullable = false)
     private String address;
 
-    @Column(length = 65)
+    @Column(length = 65, nullable = false)
     private String city;
 
-    @Column(length = 75)
+    @Column(length = 75, nullable = false)
     private String region;
 
-    @Column(length = 5)
+    @Column(name = "postal_code", length = 5, nullable = false)
     private String postalCode;
 
-    @Column(length = 35)
+    @Column(length = 35, nullable = false)
     private String country;
 }

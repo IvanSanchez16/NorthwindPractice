@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
@@ -30,7 +31,11 @@ public class EmployeeController {
         List<Employee> employeeList = service.findAll();
 
         responseDTO.setStatus( employeeList.size() == 0 ? (short)0 : (short)1 );
-        responseDTO.setData( employeeList );
+        responseDTO.setData(
+                employeeList.stream()
+                        .map(EmployeeMapper::mapToDTO)
+                        .collect(Collectors.toList())
+        );
 
         return new ResponseEntity<>(new ApiResponseDTO<>(new Meta("OK", 200), responseDTO), HttpStatus.OK);
     }
@@ -50,7 +55,7 @@ public class EmployeeController {
         service.save(employee);
 
         responseDTO.setStatus((short)1);
-        responseDTO.setData(employee);
+        responseDTO.setData(EmployeeMapper.mapToDTO(employee));
 
         return new ResponseEntity<>(new ApiResponseDTO<>(new Meta("OK", 200), responseDTO), HttpStatus.OK);
     }

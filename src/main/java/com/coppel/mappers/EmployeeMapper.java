@@ -1,6 +1,7 @@
 package com.coppel.mappers;
 
 import com.coppel.dto.requests.EmployeeRequestDTO;
+import com.coppel.dto.responses.EmployeeDTO;
 import com.coppel.entities.Employee;
 import com.coppel.entities.embedeed.Address;
 
@@ -38,5 +39,36 @@ public class EmployeeMapper {
         employee.setReportsTo(reportsTo);
 
         return employee;
+    }
+
+    public static EmployeeDTO mapToDTO(Employee employee) {
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+
+        employeeDTO.setId(employee.getId());
+        employeeDTO.setFirstName(employee.getFirstName());
+        employeeDTO.setLastName(employee.getLastName());
+        employeeDTO.setTitle(employee.getTitle());
+        employeeDTO.setTitleOfCourtesy(employee.getTitleOfCourtesy());
+
+        employeeDTO.setAddress(employee.getAddress().getAddress());
+        employeeDTO.setCountry(employee.getAddress().getCountry());
+        employeeDTO.setCity(employee.getAddress().getCity());
+        employeeDTO.setPostalCode(employee.getAddress().getPostalCode());
+        employeeDTO.setRegion(employee.getAddress().getRegion());
+
+        employeeDTO.setBirthDate(employee.getBirthDate());
+        employeeDTO.setHireDate(employee.getHireDate());
+        employeeDTO.setNotes(employee.getNotes());
+
+        employeeDTO.setPhone(String.format("%s %s", employee.getExtension(), employee.getHomePhone()));
+
+        String reportsTo;
+        if (employee.getReportsTo() != null)
+            reportsTo = String.format("%s %s", employee.getReportsTo().getFirstName(), employee.getReportsTo().getLastName());
+        else
+            reportsTo = "Nobody";
+        employeeDTO.setReportsTo(reportsTo);
+
+        return employeeDTO;
     }
 }

@@ -65,7 +65,7 @@ public class Employee {
     @Column(name = "photo_path", nullable = false)
     private String photoPath;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "reports_to")
     @JsonIgnore
     private Employee reportsTo;
